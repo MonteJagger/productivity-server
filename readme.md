@@ -1,5 +1,10 @@
 # Assignment #5 - REST APIs
 
-The description of this assignment can be found in Canvas at [Assignment #5](https://canvas.harvard.edu/courses/54354/assignments/249114) (Spring 2019)
+Here are a list of items
 
-You should build your application in this repo cloned for you in Github Classroom. You'll submit your project and github URLs in Canvas.
+click the 'get all items' to get all the items in JSON format.
+
+Next you'll have a list of items to delete/edit
+This will allow you to edit the status of the item.
+You can also delete the entire item off the collection.
+Clicking on the id link will take you to a JSON format for that particular item.
