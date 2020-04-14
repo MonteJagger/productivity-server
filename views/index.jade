@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to items list
+  a(href='/api/items') get all items
+
+  h4 list of IDs to delete
+  .row
+    each item in items
+      .col-sm-4 
+        a(href='/api/items/'+item._id) #{item._id}
+        p item name: #{item.item}
+        p description: #{item.description}
+        p status: #{item.status}
+        form(method='post' action='/edit/'+item._id)
+          div.form-group
+            label(for='status') status:
+            select(name='status')
+              option(value='incomplete' selected=status=='incomplete') incomplete
+              option(value='progress' selected=status=='progress') progress
+              option(value='complete' selected=status=='complete') complete
+          button.btn.btn-primary(type='submit') Update
+        a(href='/delete/'+item._id) 
+          button delete
+          
+        
+  include form
+
