@@ -10,7 +10,7 @@ block content
     each item in items
       .col-sm-4 
         a(href='/api/items/'+item._id) #{item._id}
-        p item name: #{item.item}
+        p item name: #{item.subject}
         p description: #{item.description}
         p status: #{item.status}
         form(method='post' action='/edit/'+item._id)
@@ -23,7 +23,4 @@ block content
           button.btn.btn-primary(type='submit') Update
         a(href='/delete/'+item._id) 
           button delete
-          
-        
-  include form
 

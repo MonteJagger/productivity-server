@@ -3,13 +3,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema; // get access to Schema constructor 
 
 const itemSchema = new Schema({
-    item: { type: String, required: true },
+    subject: { type: String, required: true },
     description: { type: String, required: false },
     status: { type: String, required: true },
     goalDate: { type: Date, required: false },
+    filename: { type: String },
+    attachmentUrl: { type: String, required: false },
     createdAt: { type: Date },
-    updateAt: { type: Date },
-    attachmentUrl: { type: String, required: false }
+    updatedAt: { type: Date }
 });
 
 // happens initially when save is called

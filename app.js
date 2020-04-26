@@ -41,6 +41,7 @@ app.use(session({
   saveUninitialized: "true"
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+console.log(__dirname);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
