@@ -53,8 +53,9 @@ router.post('/', upload.single('attachmentUrl'), (req, res, next) => {
     // req.file is provided by multer
     let itemObj = {
         subject: req.body.subject,
-        description: req.body.description,
+        list: req.body.list,
         status: req.body.status,
+        group: req.body.group,
         goalDate: req.body.goalDate,
         filename: req.file.filename,
         attachmentUrl: '/images/' + req.file.filename

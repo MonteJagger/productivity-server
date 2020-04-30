@@ -13,6 +13,7 @@ block content
         p item name: #{item.subject}
         p description: #{item.description}
         p status: #{item.status}
+        p list: #{item.list}
         form(method='post' action='/edit/'+item._id)
           div.form-group
             label(for='status') status:
