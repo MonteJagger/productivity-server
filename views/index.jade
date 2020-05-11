@@ -10,10 +10,10 @@ block content
     each item in items
       .col-sm-4 
         a(href='/api/items/'+item._id) #{item._id}
-        p item name: #{item.subject}
+        p item name: #{item.itemName}
         p description: #{item.description}
         p status: #{item.status}
-        p list: #{item.list}
+        p subject: #{item.subject}
         form(method='post' action='/edit/'+item._id)
           div.form-group
             label(for='status') status:

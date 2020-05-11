@@ -58,9 +58,9 @@ router.post('/', upload.single('attachmentUrl'), (req, res, next) => {
     }
 
     let itemObj = {
-        subject: req.body.subject,
+        itemName: req.body.itemName,
         description: req.body.description,
-        list: req.body.list,
+        subject: req.body.subject,
         status: req.body.status,
         group: req.body.group,
         goalDate: req.body.goalDate,
