@@ -7,8 +7,8 @@ const itemSchema = new Schema({
     description: { type: String, required: false },
     status: { type: String, required: true },
     goalDate: { type: Date, required: false },
-    list: { type: String, required: false},
-    filename: { type: String },
+    list: { type: String, required: false },
+    filename: { type: String, required: false },
     attachmentUrl: { type: String, required: false },
     createdAt: { type: Date },
     updatedAt: { type: Date }

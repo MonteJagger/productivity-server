@@ -17,6 +17,7 @@ router.use((req, res, next) => {
     res.set({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': ['Content-Type', 'authorization', 'Content-Length', 'X-Requested-With', 'Accept'],
         'Access-Control-Allow-Methods': ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS']
     });
     next();
@@ -47,27 +48,33 @@ router.get('/:itemid', (req, res, next) => {
             console.log(err);
         });
 })
-// items/:itemid POST - create
+// items POST - create
 router.post('/', upload.single('attachmentUrl'), (req, res, next) => {
     // content-type is multipart/form-data
     // req.file is provided by multer
+    let filename;
+    if (req.file && req.file.filename) {
+        filename = req.file.filename;
+    }
+
     let itemObj = {
         subject: req.body.subject,
+        description: req.body.description,
         list: req.body.list,
         status: req.body.status,
         group: req.body.group,
         goalDate: req.body.goalDate,
-        filename: req.file.filename,
-        attachmentUrl: '/images/' + req.file.filename
+        filename: filename,
+        attachmentUrl: filename ? '/images/' + filename : ''
     };
-
+    console.log(itemObj);
     ItemService.create(itemObj)
         .then(item => {
             console.log(`saved new item: ${item}`);
             res.status(201);
             res.send(JSON.stringify(item));
         }).catch(err => {
-            console.log(`could not saved new item: ${item}`);
+            // console.log(`could not saved new item: ${item}`);
             console.log(err);
         });
 });
@@ -75,7 +82,8 @@ router.post('/', upload.single('attachmentUrl'), (req, res, next) => {
 // items/:itemid PUT - update
 router.put('/:itemid', (req, res, next) => {
     const itemid = req.params.itemid;
-
+    console.log('req.body');
+    console.log(req.body);
     ItemService.update(itemid, req.body)
         .then(item => {
             console.log(`updated item: ${item}`);
@@ -93,15 +101,21 @@ router.delete('/:itemid', (req, res, next) => {
     // delete img from storage
     ItemService.read(itemid)
         .then(item => {
-            let attachmentUrl = item.attachmentUrl;
-            console.log(attachmentUrl);
-            fs.unlink('public' + item.attachmentUrl, err => {
-                if (err) {
-                    console.log(`error: could not delete ${item.filename} from storage or it does not exist`);
-                    console.log(err);
-                }
-                console.log(`delete: ${item.filename} was deleted from storage`);
-            });
+            if (item.attachmentUrl) {
+                let attachmentUrl = item.attachmentUrl;
+                console.log(attachmentUrl);
+                fs.unlink('public' + item.attachmentUrl, err => {
+                    if (err) {
+                        console.log(`error: could not delete ${item.filename} from storage or it does not exist`);
+                        console.log(err);
+                    }
+                    console.log(`delete: ${item.filename} was deleted from storage`);
+                });
+            }
+            else {
+                console.log('no attachment to delete');
+            }
+            
 
             // then delete from database
             ItemService.delete(itemid)
