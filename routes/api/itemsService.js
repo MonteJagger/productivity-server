@@ -62,7 +62,6 @@ router.post('/', upload.single('attachmentUrl'), (req, res, next) => {
         description: req.body.description,
         subject: req.body.subject,
         status: req.body.status,
-        group: req.body.group,
         goalDate: req.body.goalDate,
         filename: filename,
         attachmentUrl: filename ? '/images/' + filename : ''
